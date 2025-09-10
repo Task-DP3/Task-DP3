@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task-DP3.github.io</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="/Task-DP3/static/css/bulma.min.css">
+  <link rel="stylesheet" href="/Task-DP3/static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="/Task-DP3/static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="/Task-DP3/static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="/Task-DP3/static/css/index.css">
+  <link rel="icon" href="/Task-DP3/static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="/Task-DP3/static/js/fontawesome.all.min.js"></script>
+  <script src="/Task-DP3/static/js/bulma-carousel.min.js"></script>
+  <script src="/Task-DP3/static/js/bulma-slider.min.js"></script>
+  <script src="/Task-DP3/static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="/Task-DP3/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Task-DP3: Goal-Centric Perception-Driven Adaptive Trajectory Generation for Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Hao Zhong</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Xinrong Zheng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Yizhuo Sun</a><sup>1,*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Jiangshuai Huang</a><sup>1</sup>
+            </span>
+
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Chongqing University,</span>
+            <span class="author-block"><sup>*</sup>Corresponding author</span>
+          </div>
+
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+            <p>
+            Imitation learning offers an efficient framework for robotic skill acquisition.
+            However, current methods struggle with accurate action-target association, 
+            limited generalization, and long-horizon tasks with sequential constraints. 
+            To address these, we propose Task-DP3, a goal-focused framework for sequential multi-object manipulation. 
+            It includes a goal-conditioned point cloud sampler that extracts target-centric point clouds from segmentation masks, 
+            and a perception-driven skill scheduler that dynamically determines task states and plans skill sequences. 
+            This enables adaptive trajectory generation in response to environmental changes. 
+            Real-robot experiments show Task-DP3 achieves a 90 % success rate in multi-object tasks with only 30 demonstrations, 
+            outperforming state-of-the-art methods. It also demonstrates strong generalization to unseen clutter and backgrounds, 
+            and excels in long-horizon tasks with strict order constraints, 
+            proving highly suitable for real-world diffusion-based imitation learning.
+           </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Video</h2>
+        <div class="is-flex is-justify-content-center">
+          <div style="max-width:960px; width:100%;">
+            <video autoplay controls muted loop playsinline style="display:block; width:100%; height:auto;">
+              <source src="/Task-DP3/static/videos/task_DP3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- 大章节标题 -->
+    <h2 class="title is-3">Short-horizon Task Demonstration</h2>
+    <div class="content"><hr></div>
+
+    <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Task 1: Cup and Saucer Alignment</h3>
+    <!-- 任务描述 -->
+    <p class="has-text-centered">
+      When both a wooden cup and a plastic cup are present,  
+      the wooden cup is precisely placed onto the wooden saucer.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_11_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_11_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_11_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_13_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_13_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_13_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_12_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_12_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_12_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <br><br> <!-- 会多出一倍的空行 -->
+
+   
+     <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Task 2: Toy duck placement in water</h3>
+    <!-- 任务描述 -->
+    <p class="has-text-centered">
+      When both a toy duck and a toy chick are present, 
+      the yellow toy duck is grasped and immersed into water.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+    
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_21_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_21_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_21_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_23_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_23_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_23_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_22_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_22_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_22_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <br><br> <!-- 会多出一倍的空行 -->
+
+   
+     <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Task 3: Soccer in cup</h3>
+    <!-- 任务描述 -->
+    <p class="has-text-centered">
+      When three differently colored basketballs and a soccer ball are present,
+      the soccer ball is placed into a cup.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+    
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_31_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_31_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_31_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_33_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_33_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_33_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_32_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_32_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_32_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <br><br> <!-- 会多出一倍的空行 -->
+
+   
+     <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Task 4: Pen placement</h3>
+    <!-- 任务描述 -->
+    <p class="has-text-centered">
+      When both a marker pen and a watercolor pen are present, 
+      the marker pen is inserted into a pen holder.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+    
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_41_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_41_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_41_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_43_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_43_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_43_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_42_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_42_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_42_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">1x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- 大章节标题 -->
+    <h2 class="title is-3">Long-Horizon Task Demonstration</h2>
+    <div class="content"><hr></div>
+
+    <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Long-Horizon Task 1: Cup packing task</h3>
+    <!-- 任务描述 -->
+    <p class="task-description0">
+      Three cups of different sizes are placed into a square box in
+      descending order of size, followed by covering the box with its
+      lid and fastening the leather buckle.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_51_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_51_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_51_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_53_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_53_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_53_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_52_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_52_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_52_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <br><br> <!-- 会多出一倍的空行 -->
+
+
+
+     <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Long-Horizon Task 2: Water pouring task</h3>
+    <!-- 任务描述 -->
+    <p class="task-description">
+      The cup holder is first placed on a tea tray, then a cup is positioned on the holder. 
+      A kettle is subsequently lifted to pour water into the cup,
+      after which the kettle is placed back on the tray. Finally, the tea tray is pushed to the serving area.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_61_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_61_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_61_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_63_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_63_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_63_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_62_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_62_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_62_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+    <br><br> <!-- 会多出一倍的空行 -->
+
+  <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Long-Horizon Task 3: Tea brewing task</h3>
+    <!-- 任务描述 -->
+    <p class="task-description1">
+     Tea leaves are first poured into a teapot,
+     followed by adding purified water into the teapot. 
+     Next, the lid is placed on the teapot,
+     and finally the teapot is positioned on the tea stove. 
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+
+
+    <div class="container is-max-desktop">
+
+      <!-- 第一行：Seen Background -->
+      <div class="columns is-centered seen-border">
+        <!-- 第1个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_71_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第2个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_71_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第3个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Seen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_71_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二行：Unseen Background -->
+      <div class="columns is-centered unseen-bg-border">
+        <!-- 第4个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_73_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第5个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_73_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第6个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Background</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_73_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第三行：Unseen Distractors -->
+      <div class="columns is-centered unseen-distractors-border">
+        <!-- 第7个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_72_ours.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>Task-DP3(Ours)</strong></p>
+          </div>
+        </div>
+
+        <!-- 第8个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_72_dp3.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>iDP3</strong></p>
+          </div>
+        </div>
+
+        <!-- 第9个视频 -->
+        <div class="column is-one-third">
+          <div class="content has-text-centered">
+            <p class="video-label">Unseen Distractors</p>
+            <div class="video-wrapper">
+              <video autoplay controls muted loop playsinline width="100%">
+                <source src="/Task-DP3/static/videos/task_72_dp.mp4" type="video/mp4">
+              </video>
+              <div class="video-badge">3x</div>
+            </div>
+            <p><strong>DP</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+
+
+  </div>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        website template from 
+        <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener noreferrer">
+          nerfies
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

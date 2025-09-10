@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nerfies: Deformable Neural Radiance Fields</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Task-DP3: Goal-Centric Perception-Driven Adaptive Trajectory Generation for Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zhonghao0515.github.io/Task-DP3/">Hao Zhong</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhonghao0515.github.io/Task-DP3/">Xinrong Zheng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.aminer.cn/profile/yizhuo-sun/6403033d7691d561fb062df8">Yizhuo Sun</a><sup>1,*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.aminer.cn/profile/jiangshuai-huang/5611b04f45ce1e59628fea2f">Jiangshuai Huang</a><sup>1,*</sup>
+            </span>
+
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Chongqing University,</span>
+            <span class="author-block"><sup>*</sup>Corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+           <p>
+            Imitation learning offers an efficient framework for robotic skill acquisition.
+            However, current methods struggle with accurate action-target association, 
+            limited generalization, and long-horizon tasks with sequential constraints. 
+            To address these, we propose Task-DP3, a goal-focused framework for sequential multi-object manipulation. 
+            It includes a goal-conditioned point cloud sampler that extracts target-centric point clouds from segmentation masks, 
+            and a perception-driven skill scheduler that dynamically determines task states and plans skill sequences. 
+            This enables adaptive trajectory generation in response to environmental changes. 
+            Real-robot experiments show Task-DP3 achieves a 90\% success rate in multi-object tasks with only 30 demonstrations, 
+            outperforming state-of-the-art methods. It also demonstrates strong generalization to unseen clutter and backgrounds, 
+            and excels in long-horizon tasks with strict order constraints, 
+            proving highly suitable for real-world diffusion-based imitation learning.
+           </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- 大章节标题 -->
+    <h2 class="title is-3">Short-horizon Task Demonstration</h2>
+    <div class="content"><hr></div>
+
+    <!-- 小节标题 -->
+    <h3 class="title is-4 has-text-centered">Task 1:Cup and Saucer Alignment</h3>
+    <!-- 任务描述 -->
+    <p class="has-text-centered">
+      When both a wooden cup and a plastic cup are present,  
+      the wooden cup is precisely placed onto the wooden saucer.
+    </p>
+    
+    <br> <!-- 🔹 这里加一个空行 -->
+    
+    <div class="container is-max-desktop">
+
+  <!-- 第一行：Seen Background -->
+  <div class="columns is-centered">
+    <!-- 第1个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_11_ours.mp4" type="video/mp4">
+        </video>
+        <p><strong>Seen Background - Ours</strong></p>
+      </div>
+    </div>
+
+    <!-- 第2个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_11_dp3.mp4" type="video/mp4">
+        </video>
+        <p><strong>Seen Background - DP</strong></p>
+      </div>
+    </div>
+
+    <!-- 第3个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_11_dp.mp4" type="video/mp4">
+        </video>
+        <p><strong>Seen Background - DP3</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第二行：Unseen Background -->
+  <div class="columns is-centered">
+    <!-- 第4个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_12_ours.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Background - Ours</strong></p>
+      </div>
+    </div>
+
+    <!-- 第5个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_12_dp3.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Background - DP</strong></p>
+      </div>
+    </div>
+
+    <!-- 第6个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_12_dp.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Background - DP3</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第三行：Unseen Distractors -->
+  <div class="columns is-centered">
+    <!-- 第7个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_13_ours.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Distractors - Ours</strong></p>
+      </div>
+    </div>
+
+    <!-- 第8个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_13_dp3.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Distractors - DP</strong></p>
+      </div>
+    </div>
+
+    <!-- 第9个视频 -->
+    <div class="column is-one-third">
+      <div class="content has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%">
+          <source src="./static/videos/task_13_dp.mp4" type="video/mp4">
+        </video>
+        <p><strong>Unseen Distractors - DP3</strong></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+  
+
+
+
+ 
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

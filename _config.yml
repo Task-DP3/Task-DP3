@@ -1,0 +1,10 @@
+title: "My Website"
+description: "基于 Nerfies 模板搭建"
+url: "https://Task-DP3.github.io"   
+baseurl: "/Task-DP3"  
+
+exclude:
+  - README
+  - .gitignore
+  - .jekyll-cache
+  - _site
